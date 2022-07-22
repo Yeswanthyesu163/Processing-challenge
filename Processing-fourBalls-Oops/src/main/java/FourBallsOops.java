@@ -1,35 +1,48 @@
 import processing.core.PApplet;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FourBallsOops extends PApplet {
-    public static final int WIDTH = 640;
     public static final int HEIGHT = 480;
     public static final int DIAMETER = 10;
+    private List<Circle> circles = new ArrayList<Circle>();
 
-    int width1 = 0;
-    int width2 = 0;
-    int width3 = 0;
-    int width4 = 0;
 
     public static void main(String[] args) {
-        PApplet.main("FourBallsProcedural", args);
+        PApplet.main("FourBallsOops", args);
     }
 
     @Override
     public void settings() {
         super.settings();
-        size(WIDTH, HEIGHT);
+
+        //Setting up a window
+        Window window = new Window(640, 480);
+        size(window.getWidth(), window.getHeight());
+
+        // Craeting circles
+        createCircleAndAddToList(0, HEIGHT/5, DIAMETER);
+        createCircleAndAddToList(0, HEIGHT/5 * 2, DIAMETER);
+        createCircleAndAddToList(0, HEIGHT/5 * 3, DIAMETER);
+        createCircleAndAddToList(0, HEIGHT/5 * 4, DIAMETER);
+
     }
 
     @Override
     public void draw() {
-        drawCircle(width1+=1,HEIGHT/5, DIAMETER, DIAMETER);
-        drawCircle(width2+=2,HEIGHT/5 * 2, DIAMETER, DIAMETER);
-        drawCircle(width3+=3,HEIGHT/5 * 3, DIAMETER, DIAMETER);
-        drawCircle(width4+=4,HEIGHT/5 * 4, DIAMETER, DIAMETER);
-
+        for (int i = 0; i < circles.size(); i++) {
+            drawCircle(circles.get(i));
+            circles.get(i).incrementWidthBy(i+1);
+        }
     }
 
-    private void drawCircle(int width, int height, int diameter1, int diameter2) {
-        ellipse(width, height, diameter1, diameter2);
+    public void drawCircle(Circle circle) {
+        ellipse(circle.getWidth(), circle.getHeight(), circle.getDiameter(), circle.getDiameter());
+    }
+
+    public void createCircleAndAddToList(int width, int height, int diameter) {
+        Circle circle = new Circle(width, height, diameter);
+        circles.add(circle);
     }
 }
