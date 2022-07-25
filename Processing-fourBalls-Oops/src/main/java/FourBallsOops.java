@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FourBallsOops extends PApplet {
-    public static final int HEIGHT = 480;
     public static final int DIAMETER = 10;
-    private List<Circle> circles = new ArrayList<Circle>();
+    private final List<Circle> circles = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -17,32 +16,28 @@ public class FourBallsOops extends PApplet {
     public void settings() {
         super.settings();
 
-        //Setting up a window
         Window window = new Window(640, 480);
         size(window.getWidth(), window.getHeight());
 
-        // Craeting circles
-        createCircleAndAddToList(0, HEIGHT/5, DIAMETER);
-        createCircleAndAddToList(0, HEIGHT/5 * 2, DIAMETER);
-        createCircleAndAddToList(0, HEIGHT/5 * 3, DIAMETER);
-        createCircleAndAddToList(0, HEIGHT/5 * 4, DIAMETER);
-
+        for (int i = 0; i < 4; i++) {
+            createCircleAndAddToList(window.getHeight()/5 * (i+1), i+1);
+        }
     }
 
     @Override
     public void draw() {
-        for (int i = 0; i < circles.size(); i++) {
-            drawCircle(circles.get(i));
-            circles.get(i).incrementWidthBy(i+1);
+        for (Circle circle : circles) {
+            drawCircle(circle);
         }
     }
 
     public void drawCircle(Circle circle) {
         ellipse(circle.getWidth(), circle.getHeight(), circle.getDiameter(), circle.getDiameter());
+        circle.incrementWidth();
     }
 
-    public void createCircleAndAddToList(int width, int height, int diameter) {
-        Circle circle = new Circle(width, height, diameter);
+    public void createCircleAndAddToList(int height, int incrementValue) {
+        Circle circle = new Circle(0, height, DIAMETER, incrementValue);
         circles.add(circle);
     }
 }

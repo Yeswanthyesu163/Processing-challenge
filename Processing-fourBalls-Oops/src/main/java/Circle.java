@@ -2,26 +2,20 @@ import processing.core.PApplet;
 
 public class Circle extends PApplet {
     private int width;
-    private int height;
-    private int diameter;
+    private final int height;
+    private final int diameter;
+    private final int incrementValue;
 
-
-
-    //Constructors
-    public Circle(){}
-
-    public Circle(int width, int height, int diameter) {
+    public Circle(int width, int height, int diameter, int incrementValue) {
         this.width = width;
         this.height = height;
         this.diameter = diameter;
+        this.incrementValue = incrementValue;
     }
 
-    public void incrementWidthBy(int incrementvalue) {
-        this.width += incrementvalue;
+    public void incrementWidth() {
+        this.width += this.incrementValue;
     }
-
-
-    // getters & setters
 
     public int getWidth() {
         return width;
@@ -33,18 +27,6 @@ public class Circle extends PApplet {
 
     public int getDiameter() {
         return diameter;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setDiameter(int diameter) {
-        this.diameter = diameter;
     }
 
 }
